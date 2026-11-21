@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SWARM-X | Advanced Virtual Network Simulation</title>
+<style>
+:root{--bg:#f3f6fa;--panel:#fff;--ink:#172235;--muted:#718096;--line:#e4eaf1;--accent:#087f8c;--accent2:#12a6b5;--good:#16845b;--warn:#c17b16;--bad:#c44747;--nav:#172638}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Inter,Segoe UI,Arial,sans-serif}.app{display:grid;grid-template-columns:245px 1fr;min-height:100vh}.side{background:var(--nav);color:#eaf1f8;padding:24px 16px}.brand{font-size:22px;font-weight:800;letter-spacing:1.5px}.subbrand{color:#9fb2c6;font-size:11px;margin:4px 0 30px}.nav button{width:100%;text-align:left;border:0;background:transparent;color:#c5d2df;padding:12px;border-radius:9px;margin:3px 0;cursor:pointer;font-size:13px}.nav button.active,.nav button:hover{background:#29445b;color:white}.side-note{margin-top:30px;padding:12px;border:1px solid #385168;border-radius:10px;color:#aebfd0;font-size:11px}.main{padding:26px;max-width:1600px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:22px}.eyebrow{color:var(--accent);font-weight:700;font-size:11px;letter-spacing:1.4px}.top h1{margin:3px 0;font-size:25px}.muted{color:var(--muted)}.status{background:#e5f5ef;color:var(--good);padding:7px 11px;border-radius:20px;font-size:12px;font-weight:700}.grid{display:grid;gap:15px}.kpis{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:17px;box-shadow:0 3px 12px #1c35500a}.klabel{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px}.kvalue{font-size:27px;font-weight:750;margin:6px 0}.kfoot{font-size:11px;color:var(--muted)}.two{grid-template-columns:minmax(0,1.5fr) minmax(280px,.8fr)}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.card h2{font-size:15px;margin:0 0 13px}.cardhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.pill{font-size:10px;border-radius:20px;padding:4px 8px;background:#edf3f7;color:#506174}.btns{display:flex;flex-wrap:wrap;gap:8px}.btn{border:0;border-radius:8px;padding:9px 12px;background:var(--accent);color:white;font-weight:650;cursor:pointer}.btn:hover{filter:brightness(.94)}.btn.secondary{background:#eaf1f5;color:#29445b}.btn.danger{background:#fff0ef;color:var(--bad)}.btn:disabled{opacity:.45;cursor:not-allowed}.topology{width:100%;height:320px;background:linear-gradient(180deg,#fbfdff,#f5f9fc);border:1px solid var(--line);border-radius:10px}.edge{stroke:#a9bac8;stroke-width:2.2}.edge.off{stroke:#d45a5a;stroke-dasharray:6 6}.edge.active{stroke:var(--accent2);stroke-width:3}.node circle{fill:#e7f5f5;stroke:var(--accent);stroke-width:2.5}.node.offline circle{fill:#fff0ef;stroke:var(--bad)}.node text{font-size:11px;fill:#203247;text-anchor:middle}.node .small{font-size:9px;fill:#68798b}.node.leader circle{stroke:#c18a20;stroke-width:4}.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:10px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;background:var(--good)}.dot.red{background:var(--bad)}.dot.gold{background:#c18a20}.node-list{display:grid;gap:9px}.node-row{display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:9px;padding:9px;border:1px solid var(--line);border-radius:9px}.node-icon{width:32px;height:32px;border-radius:9px;background:#e9f5f6;color:var(--accent);display:grid;place-items:center;font-weight:800}.node-row.offline .node-icon{background:#fff0ef;color:var(--bad)}.node-name{font-weight:700}.node-meta{font-size:11px;color:var(--muted)}.tag{font-size:10px;padding:4px 7px;border-radius:12px;background:#e8f5ef;color:var(--good)}.tag.off{background:#fff0ef;color:var(--bad)}.bar{height:6px;background:#edf1f5;border-radius:8px;overflow:hidden;margin-top:6px}.bar span{display:block;height:100%;background:var(--accent2)}.table{width:100%;border-collapse:collapse;font-size:12px}.table th,.table td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line)}.table th{color:var(--muted);font-size:10px;text-transform:uppercase}.log{max-height:220px;overflow:auto;display:grid;gap:8px}.logitem{border-left:3px solid var(--accent2);padding:5px 9px;background:#f8fafc;border-radius:0 7px 7px 0;font-size:11px}.logitem time{color:var(--muted);margin-right:7px}.section{display:none}.section.active{display:block}.notice{background:#fff8e9;border:1px solid #f1dfb9;color:#79571e;border-radius:10px;padding:11px 13px;font-size:12px;margin-bottom:15px}.metricline{display:flex;justify-content:space-between;font-size:12px;margin:9px 0 4px}.empty{color:var(--muted);padding:20px;text-align:center}.foot{font-size:11px;color:var(--muted);margin:18px 2px}.toast{position:fixed;bottom:20px;right:20px;background:#18364a;color:white;padding:12px 16px;border-radius:9px;box-shadow:0 6px 24px #0002;opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translateY(0)}@media(max-width:900px){.app{grid-template-columns:1fr}.side{padding:14px}.nav{display:flex;overflow:auto;gap:4px}.nav button{white-space:nowrap;width:auto}.side-note{display:none}.main{padding:16px}.kpis{grid-template-columns:repeat(2,1fr)}.two,.three{grid-template-columns:1fr}}@media(max-width:480px){.kpis{grid-template-columns:1fr 1fr}.top{align-items:flex-start;flex-direction:column}}
+
+
+
+
+/* Palette sampled from the user's reference screenshot */
+:root{
+  --bg:#00062A;       /* dominant midnight background */
+  --panel:#000C32;    /* dashboard panels */
+  --ink:#EAF7FF;
+  --muted:#819BC4;
+  --line:#102D70;
+  --accent:#00D9FF;   /* cyan highlights */
+  --accent2:#168CFF;  /* blue graph accents */
+  --good:#39EBC6;
+  --warn:#FFD36A;
+  --bad:#FF527D;
+  --nav:#00051F;
+}
+html,body{background:#00051F;color:var(--ink)}
+body{
+ background:
+  radial-gradient(ellipse at 50% 0%,#06164A 0%,#00062A 52%,#000018 100%);
+}
+.side{
+ background:linear-gradient(180deg,#000C32 0%,#00051F 100%);
+ border-right:1px solid #102D70;
+ box-shadow:8px 0 30px #00001866;
+}
+.brand{color:#EAFBFF;text-shadow:0 0 12px #00D9FF55}
+.subbrand{color:#819BC4}
+.nav button{color:#A5BCE2;border:1px solid transparent}
+.nav button.active,.nav button:hover{
+ background:linear-gradient(100deg,#062B70,#064B85);
+ border-color:#087DB4;color:#F4FDFF;
+ box-shadow:0 0 15px #008DFF25,inset 0 0 18px #00D9FF12;
+}
+.side-note{background:#000C32;border-color:#123777;color:#91AAD2}
+.eyebrow{color:#00D9FF;text-shadow:0 0 10px #00CFFF55}
+.top h1{color:#EFFAFF;text-shadow:0 0 15px #00AAFF25}
+.status{background:#003B4A;color:#6DF7E1;border:1px solid #007F9B}
+.card{
+ background:linear-gradient(145deg,#000C32 0%,#000821 100%);
+ border:1px solid #102D70;
+ box-shadow:0 8px 26px #00001B99,inset 0 1px 0 #5CCFFF10;
+}
+.card h2{color:#E9F8FF}
+.klabel{color:#819BC4}
+.kvalue{color:#F2FCFF;text-shadow:0 0 16px #00AAFF32}
+.kfoot,.muted,.node-meta,.foot{color:#8DA6D0}
+.pill{background:#000C3E;color:#8CEAFF;border:1px solid #16477F}
+.btn{
+ background:linear-gradient(105deg,#087CDA 0%,#00CFFF 100%);
+ color:#00102C;border:1px solid #20DFFF;
+ box-shadow:0 0 14px #00CFFF35;
+}
+.btn:hover{filter:brightness(1.15);box-shadow:0 0 20px #00CFFF55}
+.btn.secondary{background:#08265F;color:#D9F4FF;border:1px solid #1764A6}
+.btn.danger{background:#431638;color:#FFB6D3;border:1px solid #A33372}
+.topology{
+ background:radial-gradient(circle at 50% 48%,#063D83 0%,#03184A 26%,#000A30 72%);
+ border:1px solid #14549A;
+ box-shadow:inset 0 0 35px #006EFF20,0 0 18px #006EFF12;
+}
+.edge{stroke:#4269A7;stroke-width:1.8;opacity:.9}
+.edge.off{stroke:#8B50E0;stroke-dasharray:4 6;opacity:.9}
+.edge.active{stroke:#00DFFF;stroke-width:2.8;filter:drop-shadow(0 0 4px #00CFFF)}
+.node circle{fill:#073879;stroke:#19DFFF;stroke-width:2.5;filter:drop-shadow(0 0 6px #00BFFF)}
+.node.offline circle{fill:#35143E;stroke:#FF4F86}
+.node text{fill:#EFFAFF}
+.node .small{fill:#8DC9F2}
+.node.leader circle{
+ fill:#0862A7;stroke:#C9FBFF;stroke-width:4;
+ filter:drop-shadow(0 0 8px #00EAFF) drop-shadow(0 0 18px #008CFF);
+}
+.legend{color:#9BB2D9}
+.dot{background:#39EBC6;box-shadow:0 0 7px #39EBC6}
+.dot.red{background:#FF4F86}
+.dot.gold{background:#00DFFF;box-shadow:0 0 8px #00DFFF}
+.node-row{background:linear-gradient(100deg,#061741,#000D34);border-color:#123779}
+.node-icon{background:#052E69;color:#43E5FF;border:1px solid #1265A2}
+.node-row.offline .node-icon{background:#35143E;color:#FF9ABB}
+.tag{background:#063B38;color:#6DF3D1}
+.tag.off{background:#4A1838;color:#FF9ABB}
+.bar{background:#10254D}
+.bar span{background:linear-gradient(90deg,#087CFF,#00DFFF);box-shadow:0 0 8px #00CFFF66}
+.table th,.table td{border-bottom:1px solid #102D70}
+.table th{color:#8BA5CE}
+.logitem{background:#000C32;border-left:3px solid #00D9FF;color:#D9EFFF;box-shadow:inset 0 0 14px #008CFF0A}
+.logitem time{color:#7998C4}
+.empty{color:#819BC4}
+.notice{background:#06143A;border:1px solid #173D78;color:#A9DFFF}
+input[type="range"]{accent-color:#00D9FF;cursor:pointer}
+select{background:#000C32;color:#E7F7FF;border:1px solid #20518C;border-radius:6px;padding:5px}
+hr{border-color:#102D70!important}
+.toast{background:#052C55;color:#F1FCFF;border:1px solid #00A9D6;box-shadow:0 0 24px #00A9D633}
+@media(max-width:900px){.side{border-right:0;border-bottom:1px solid #102D70}}
+
+
+/* Screenshot-inspired operations overview. Scoped to Overview so every other tab keeps its original layout. */
+#overview{--ov-bg:#07111f;--ov-panel:#0b1929;--ov-line:#26394d;--ov-cyan:#66dce8;--ov-muted:#91a6b9}
+#overview .overview-board{display:grid;grid-template-columns:1.05fr 1.05fr 1.05fr;gap:13px}
+#overview .ov-panel{min-width:0;padding:13px;border-radius:10px;background:linear-gradient(145deg,#122235 0%,#091523 100%);border:1px solid #30445a;box-shadow:0 7px 18px #0006,inset 0 1px 0 #b5eaff12;color:#e9f5ff}
+#overview .ov-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:11px}
+#overview .ov-head h2{font-size:13px;margin:0;color:#f0f7ff;font-weight:700}
+#overview .ov-head>span{font-size:9px;letter-spacing:.7px;color:#8da8bf}
+#overview .ov-head .alert-label{color:#ff9b83}
+#overview .ov-map-inner{height:178px;overflow:hidden;border-radius:6px;background:#12283a}
+#overview .ov-map .topology{height:178px;border:0;border-radius:0;background:radial-gradient(ellipse at center,#1a4050,#0c1d2c 75%);box-shadow:none}
+#overview .ov-map .node circle{fill:#0c7188;stroke:#8cecf1;filter:drop-shadow(0 0 5px #29d7e9)}
+#overview .ov-map .node.offline circle{fill:#562c3b;stroke:#ff7890}
+#overview .ov-map .node text{fill:#f0fbff}.ov-map .node .small{fill:#b3d6e4}
+#overview .ov-map .edge{stroke:#54738c}.ov-map .edge.active{stroke:#3ed7e7;filter:drop-shadow(0 0 3px #32cde0)}
+#overview .ov-legend{display:flex;gap:13px;flex-wrap:wrap;margin-top:9px;color:#9db2c5;font-size:10px}
+#overview .ov-legend .dot{width:7px;height:7px}
+#overview .path-visual{height:218px;border-radius:6px;overflow:hidden;background:linear-gradient(135deg,#132b3b,#0a1827);padding:8px}
+#overview .path-visual svg{width:100%;height:184px;display:block}
+#overview .path-caption{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:#91a9bb;font-size:9px}
+#overview .path-line{display:inline-block;width:17px;border-top:2px solid #22c7e8;vertical-align:middle;margin-right:5px}
+#overview .path-line.alt{border-color:#f0a64a;border-top-style:dashed}
+#overview .telemetry-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#overview .telemetry-tile{background:linear-gradient(135deg,#1b2d40,#102033);border:1px solid #30475b;border-radius:6px;padding:11px 10px;min-height:83px}
+#overview .telemetry-tile small{display:block;color:#9bb0c3;font-size:10px}
+#overview .telemetry-tile strong{display:block;font-size:23px;line-height:1.5;color:#f2fbff;font-weight:650}
+#overview .telemetry-bar{height:4px;background:#30465a;border-radius:8px;overflow:hidden;margin-top:4px}
+#overview .telemetry-bar i{display:block;height:100%;background:linear-gradient(90deg,#21aeca,#72e6df)}
+#overview .ov-rows{display:grid;gap:7px}
+#overview .ov-row{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 8px;padding:9px 10px;border-radius:5px;background:linear-gradient(100deg,#1a2b3d,#101e2d);border:1px solid #263c51;font-size:11px}
+#overview .ov-row b{font-size:11px;color:#eaf5ff}#overview .ov-row small{grid-column:1/-1;color:#8ea5b9;font-size:9px}
+#overview .ov-state{font-size:9px;color:#74e2cf;white-space:nowrap}
+#overview .fleet-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#overview .fleet-grid>div{padding:10px;background:linear-gradient(135deg,#1a2d40,#101f30);border:1px solid #30475b;border-radius:5px}
+#overview .fleet-grid strong{display:block;font-size:23px;color:#dffaff;line-height:1.2}
+#overview .fleet-grid small{font-size:9px;color:#9bb0c3}
+#overview .ov-log{max-height:142px;min-height:125px;gap:6px}
+#overview .ov-log .logitem{background:#142438;border-left-color:#4bd3df;font-size:10px;padding:7px 8px}
+#overview .ov-log .empty{color:#90a6b9;padding:14px}
+#overview .ov-metrics{display:grid;gap:0}
+#overview .ov-metrics>div{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 3px;border-bottom:1px solid #263b50;font-size:10px;color:#a9bdce}
+#overview .ov-metrics>div:last-child{border-bottom:0}
+#overview .ov-metrics b{font-size:19px;color:#f0fbff}
+#overview .ov-controls{margin-top:13px}
+#overview .ov-controls p{font-size:11px;color:#9bb0c3;margin:0 0 11px}
+#overview .ov-controls .btn{font-size:11px;padding:8px 10px}
+@media(max-width:1050px){#overview .overview-board{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){#overview .overview-board{grid-template-columns:1fr}#overview .ov-map-inner{height:190px}#overview .ov-map .topology{height:190px}}
+
+
+/* Node monitoring: predictive virtual health diagnostics */
+#nodes .health-intro{margin:0 0 14px;color:#91add1;font-size:12px}
+#nodes .health-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+#nodes .health-card{background:linear-gradient(145deg,#061741,#000b2d);border:1px solid #164078;border-radius:11px;padding:13px;min-width:0}
+#nodes .health-card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:9px}
+#nodes .health-card-top strong{font-size:14px;color:#effaff}
+#nodes .health-score{font-size:23px;font-weight:800;color:#6be8ff}
+#nodes .health-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#nodes .health-metric{padding:8px;border-radius:7px;background:#071f4a;border:1px solid #153b70;min-width:0}
+#nodes .health-metric small{display:block;color:#8eaad2;font-size:9px;text-transform:uppercase;letter-spacing:.4px}
+#nodes .health-metric b{display:block;color:#eaf8ff;font-size:14px;margin-top:3px;overflow-wrap:anywhere}
+#nodes .health-state{font-size:9px;padding:4px 7px;border-radius:12px;background:#063b38;color:#6df3d1;white-space:nowrap}
+#nodes .health-state.warn{background:#493516;color:#ffdb83}
+#nodes .health-state.bad{background:#4a1838;color:#ff9abb}
+#nodes .health-bar{height:6px;background:#10254d;border-radius:8px;overflow:hidden;margin-top:8px}
+#nodes .health-bar i{display:block;height:100%;background:linear-gradient(90deg,#087cff,#00dfff)}
+#nodes .health-table-wrap{overflow-x:auto}
+#nodes .health-note{font-size:11px;color:#8eaad2;margin-top:10px}
+@media(max-width:1000px){#nodes .health-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){#nodes .health-grid{grid-template-columns:1fr}}
+
+
+#coordination .feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+#coordination .feature-card{background:linear-gradient(145deg,#061741,#000b2d);border:1px solid #164078;border-radius:12px;padding:15px;min-width:0}
+#coordination .feature-card h2{margin:0 0 10px;color:#effaff;font-size:15px}
+#coordination .feature-copy{font-size:11px;color:#91add1;margin:0 0 13px}
+#coordination .feature-stat{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #17345f;font-size:12px}
+#coordination .feature-stat b{color:#eaf8ff}
+#coordination .feature-controls{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+#coordination select,#coordination input[type=range]{max-width:100%}
+#coordination .feature-log{max-height:180px;overflow:auto;display:grid;gap:7px}
+#coordination .feature-log .logitem{font-size:10px}
+@media(max-width:800px){#coordination .feature-grid{grid-template-columns:1fr}}
+</style></head>
+<body><div class="app"><aside class="side"><div class="brand">SWARM-X</div><div class="subbrand">DISTRIBUTED NETWORK LAB · VIRTUAL SIMULATION</div><nav class="nav" id="nav"><button class="active" data-tab="overview">▦ &nbsp; Overview</button><button data-tab="topology">⌘ &nbsp; Network topology</button><button data-tab="nodes">◉ &nbsp; Node monitoring</button><button data-tab="leadership">♛ &nbsp; Leadership</button><button data-tab="comms">⇄ &nbsp; Communications</button><button data-tab="coordination">⇄ &nbsp; Coordination lab</button><button data-tab="missions">☷ &nbsp; Mission sync</button><button data-tab="analytics">▥ &nbsp; Analytics & reports</button></nav><div class="side-note">SIMULATION MODE<br><br>This educational dashboard models virtual nodes and links. It does not connect to or control physical drones.</div></aside>
+<main class="main"><header class="top"><div><div class="eyebrow">RESEARCH CONSOLE / SOFTWARE-ONLY</div><h1 id="pageTitle">System overview</h1><div class="muted">Monitor virtual network health, message flow and recovery experiments.</div></div><span class="status" id="globalStatus">● NETWORK ONLINE</span></header>
+<div class="notice">All node values, communication results and performance metrics are simulated for demonstration and testing.</div>
+<section id="overview" class="section active">
+<div class="overview-board">
+  <div class="ov-panel ov-map"><div class="ov-head"><h2>Active Node Map</h2><span>NETWORK LIVE</span></div><div class="ov-map-inner"><svg id="miniTopology" class="topology" viewBox="0 0 600 320" role="img" aria-label="Live virtual network node map"></svg></div><div class="ov-legend"><span><i class="dot"></i>Available</span><span><i class="dot red"></i>Unavailable</span><span><i class="dot gold"></i>Coordinator</span></div></div>
+  <div class="ov-panel ov-paths"><div class="ov-head"><h2>Flight Paths</h2><span>LOGICAL LINKS</span></div><div class="path-visual"><svg viewBox="0 0 520 260" role="img" aria-label="Illustrative virtual network communication paths"><defs><pattern id="ovgrid" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M34 0H0V34" fill="none" stroke="#29415b" stroke-width="1" opacity=".45"/></pattern></defs><rect width="520" height="260" fill="url(#ovgrid)"/><path d="M45 65 L145 38 L225 88 L330 52 L460 90 L410 190 L300 215 L190 165 L80 205 Z" fill="none" stroke="#22c7e8" stroke-width="3" stroke-linejoin="round"/><path d="M45 65 L190 165 L300 215 L460 90 M145 38 L80 205 M225 88 L410 190" fill="none" stroke="#f0a64a" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="8 7"/><g fill="#65e8f4" stroke="#061729" stroke-width="4"><circle cx="45" cy="65" r="7"/><circle cx="145" cy="38" r="7"/><circle cx="225" cy="88" r="7"/><circle cx="330" cy="52" r="7"/><circle cx="460" cy="90" r="7"/><circle cx="410" cy="190" r="7"/><circle cx="300" cy="215" r="7"/><circle cx="190" cy="165" r="7"/><circle cx="80" cy="205" r="7"/></g><g fill="#dffaff" font-size="11" font-family="Arial"><text x="24" y="50">D1</text><text x="128" y="23">D2</text><text x="211" y="73">D3</text><text x="316" y="37">D4</text><text x="445" y="75">D5</text><text x="395" y="177">D6</text></g></svg><div class="path-caption"><span><i class="path-line"></i>Active communication route</span><span><i class="path-line alt"></i>Alternate route</span></div></div></div>
+  <div class="ov-panel ov-telemetry"><div class="ov-head"><h2>Telemetry Stats</h2><span>SIMULATED</span></div><div class="telemetry-grid"><div class="telemetry-tile"><small>Active Nodes</small><strong id="kActive">6 / 6</strong><div class="telemetry-bar"><i id="activeBar" style="width:100%"></i></div></div><div class="telemetry-tile"><small>Message Delivery</small><strong id="kDelivery">—</strong><div class="telemetry-bar"><i id="deliveryOverviewBar" style="width:0%"></i></div></div><div class="telemetry-tile"><small>Network Groups</small><strong id="kGroups">1</strong><div class="telemetry-bar"><i id="groupsBar" style="width:100%"></i></div></div><div class="telemetry-tile"><small>Coordinator</small><strong id="kLeader">D1</strong><div class="telemetry-bar"><i style="width:100%"></i></div></div></div></div>
+  <div class="ov-panel"><div class="ov-head"><h2>Mission Status</h2><span>EXPERIMENTS</span></div><div class="ov-rows"><div class="ov-row"><b>Network health check</b><span class="ov-state" id="healthState">Stable</span><small>Continuous virtual monitoring</small></div><div class="ov-row"><b>Message delivery test</b><span class="ov-state" id="messageState">Ready</span><small id="messageSub">Awaiting test run</small></div><div class="ov-row"><b>Coordinator election</b><span class="ov-state">Automatic</span><small>Battery + nearness scoring</small></div></div></div>
+  <div class="ov-panel"><div class="ov-head"><h2>Fleet Overview</h2><span>VIRTUAL FLEET</span></div><div class="fleet-grid"><div><strong id="fleetTotal">6</strong><small>Total Nodes</small></div><div><strong id="fleetActive">6</strong><small>Active</small></div><div><strong id="fleetGroups">1</strong><small>Groups</small></div><div><strong id="fleetOffline">0</strong><small>Offline</small></div></div></div>
+  <div class="ov-panel"><div class="ov-head"><h2>Alerts</h2><span class="alert-label">ATTENTION</span></div><div id="overviewAlerts" class="ov-rows"><div class="ov-row"><b>All systems nominal</b><span class="ov-state">Clear</span><small>No virtual node alerts</small></div></div></div>
+  <div class="ov-panel"><div class="ov-head"><h2>Maintenance</h2><span>NODE HEALTH</span></div><div class="ov-rows"><div class="ov-row"><b>Coordinator selection</b><span class="ov-state">Automatic</span><small>Re-evaluated after state changes</small></div><div class="ov-row"><b>Link integrity</b><span class="ov-state">Simulated</span><small>Logical connections only</small></div></div></div>
+  <div class="ov-panel"><div class="ov-head"><h2>Flight Logs</h2><span>RECENT EVENTS</span></div><div id="overviewLog" class="log ov-log"></div></div>
+  <div class="ov-panel"><div class="ov-head"><h2>Performance Metrics</h2><span>LIVE SUMMARY</span></div><div class="ov-metrics"><div><span>Messages attempted</span><b id="ovSent">0</b></div><div><span>Delivery success</span><b id="ovSuccess">—</b></div><div><span>Node availability</span><b id="ovAvailability">100%</b></div></div></div>
+</div>
+<div class="ov-controls ov-panel"><div class="ov-head"><h2>Experiment Controls</h2><span>INTERACTIVE SIMULATION</span></div><p>Run controlled scenarios and observe how the virtual network state changes.</p><div class="btns"><button class="btn" onclick="messageTest()">Run message test</button><button class="btn secondary" onclick="partition()">Simulate partition</button><button class="btn secondary" onclick="recover()">Reconnect & recover</button><button class="btn danger" onclick="simulateLeaderFailure()">Simulate coordinator failure</button><button class="btn danger" onclick="resetSim()">Reset experiment</button></div></div>
+</section>
+<section id="topology" class="section"><div class="card"><div class="cardhead"><h2>Interactive virtual network topology</h2><span class="pill">6 NODES · SIMULATED LINKS</span></div><svg id="fullTopology" class="topology" viewBox="0 0 800 420"></svg><div class="legend"><span><i class="dot"></i>Available node</span><span><i class="dot red"></i>Unavailable node</span><span><i class="dot gold"></i>Selected coordinator</span></div><p class="muted">Lines represent logical simulated connections. A partition separates the virtual network into groups.</p></div></section>
+<section id="nodes" class="section">
+<div class="card"><div class="cardhead"><h2>Virtual node register</h2><span class="pill">HEALTH & STATUS</span></div><div id="nodeRegister" class="node-list"></div></div>
+<div class="card" style="margin-top:15px"><div class="cardhead"><h2>Predictive health diagnostics</h2><span class="pill">VIRTUAL SENSOR TELEMETRY</span></div>
+<p class="health-intro">Health ranking estimates which virtual node is in the best condition using battery and simulated motor, communication and navigation-sensor indicators. Higher health score = healthier node. Weights: battery 10%, motor temperature 15%, vibration 15%, RPM 10%, commutation 10%, communication 15%, IMU 15%, GPS 10%.</p>
+<div class="btns" style="margin-bottom:13px"><button class="btn" onclick="simulateTelemetryShift()">Simulate telemetry update</button><button class="btn secondary" onclick="resetTelemetry()">Reset telemetry</button></div>
+<div id="healthCards" class="health-grid"></div>
+<div class="cardhead" style="margin-top:20px"><h2>Predictive node ranking</h2><span class="pill">HEALTH SCORE / 100</span></div>
+<div class="health-table-wrap"><table class="table"><thead><tr><th>Rank</th><th>Node</th><th>Health score</th><th>Predicted condition</th><th>Primary indicator</th></tr></thead><tbody id="healthRankingRows"></tbody></table></div>
+<p class="health-note">Demo only: motor temperature, vibration, RPM, commutation, communication, IMU and GPS values are generated sample data—not live sensor readings, validated fault predictions, or flight-control inputs.</p>
+</div></section>
+
+<section id="leadership" class="section">
+  <div class="notice">Leadership transitions are abstract software state changes between virtual nodes. No physical devices are controlled.</div>
+  <div class="grid two">
+    <div class="card">
+      <div class="cardhead"><h2>Current leadership state</h2><span class="pill">VIRTUAL ELECTION</span></div>
+      <div class="grid three">
+        <div><div class="klabel">Primary coordinator</div><div class="kvalue" id="leadPrimary">—</div></div>
+        <div><div class="klabel">Leadership term</div><div class="kvalue" id="leadTerm">0</div></div>
+        <div><div class="klabel">Active groups</div><div class="kvalue" id="leadGroups">1</div></div>
+      </div>
+      <p class="muted">The simulation selects the available virtual node with the strongest combined score: 50% battery + 50% nearness. Higher nearness score means nearer. Change the sliders below to see the coordinator change immediately.</p>
+      <div class="btns"><button class="btn" onclick="runBatteryExample()">Run battery-drop example</button><button class="btn secondary" onclick="resetBatteryExample()">Reset example values</button><button class="btn danger" onclick="simulateLeaderFailure()">Simulate coordinator failure</button><button class="btn secondary" onclick="recover()">Reconnect & reconcile</button></div>
+      <div class="notice" style="margin-top:14px;margin-bottom:8px">Virtual example: D1 starts with 85% battery and 95 nearness (score 90). D6 has 89% battery and 91 nearness (score 90). If D1 battery drops to 60%, its score becomes 77.5, so D6 becomes coordinator with score 90.</div>
+      <h2 style="margin-top:16px">Adjust virtual node values</h2>
+      <p class="muted">Battery and nearness are editable demo values (0–100). They are not real sensor readings or physical distances.</p>
+      <div id="leadershipControls" class="node-list"></div>
+    </div>
+    <div class="card">
+      <h2>Coordinator by virtual group</h2>
+      <table class="table"><thead><tr><th>Group</th><th>Coordinator</th><th>Combined score</th><th>Status</th></tr></thead><tbody id="groupLeaderRows"></tbody></table>
+      <p class="muted">A group coordinator is a logical role in this browser-only model.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:15px">
+    <div class="cardhead"><h2>Leadership transition history</h2><span class="pill">AUDIT LOG</span></div>
+    <table class="table"><thead><tr><th>Time</th><th>Scope</th><th>Previous</th><th>New coordinator</th><th>Reason</th><th>Term</th></tr></thead><tbody id="leadershipRows"></tbody></table>
+    <div id="leadershipEmpty" class="empty">No leadership transitions recorded yet.</div>
+  </div>
+</section>
+
+<section id="comms" class="section"><div class="grid two"><div class="card"><h2>Communication test bench</h2><p class="muted">Generate a batch of abstract messages across currently connected virtual nodes.</p><button class="btn" onclick="messageTest()">Run message test</button><div class="grid three" style="margin-top:16px"><div><div class="klabel">Sent</div><div class="kvalue" id="sentCount">0</div></div><div><div class="klabel">Delivered</div><div class="kvalue" id="deliveredCount">0</div></div><div><div class="klabel">Failed</div><div class="kvalue" id="failedCount">0</div></div></div><div class="metricline"><span>Delivery ratio</span><b id="deliveryText">—</b></div><div class="bar"><span id="deliveryBar" style="width:0%"></span></div></div><div class="card"><h2>Communication event log</h2><div id="commLog" class="log"></div></div></div></section>
+<section id="coordination" class="section">
+<div class="notice">Browser-only virtual demonstrations. These controls do not transmit radio signals, measure real-world distance, coordinate physical aircraft, or issue flight commands.</div>
+<div class="feature-grid">
+<div class="feature-card"><h2>1. Distance transmitter & receiver</h2><p class="feature-copy">Choose a virtual sender and receiver. Separation is an abstract index, not metres or a real radio-range measurement.</p>
+<div class="feature-controls"><label>Transmitter <select id="txNode"><option>D1</option><option>D2</option><option>D3</option><option>D4</option><option>D5</option><option>D6</option></select></label><label>Receiver <select id="rxNode"><option>D2</option><option>D1</option><option>D3</option><option>D4</option><option>D5</option><option>D6</option></select></label></div>
+<div class="metricline"><label for="virtualDistance">Virtual separation index</label><b id="virtualDistanceValue">35 / 100</b></div><input id="virtualDistance" type="range" min="0" max="100" value="35" style="width:100%" oninput="updateVirtualLink()">
+<div class="feature-stat"><span>Logical link quality</span><b id="virtualLinkQuality">—</b></div><div class="feature-stat"><span>Link state</span><b id="virtualLinkState">—</b></div><div class="feature-stat"><span>Message result</span><b id="virtualTxResult">Not tested</b></div>
+<div class="feature-stat"><span>Connection stage</span><b id="virtualConnectionStage">Idle</b></div>
+<div class="feature-controls"><button class="btn" onclick="testVirtualLink()">Run next message test</button><button class="btn secondary" onclick="resetVirtualLink()">Reset test sequence</button></div><p class="feature-copy">Each click advances the same link through a demonstration cycle: connected → degraded → weak → connection lost → reconnected.</p></div>
+<div class="feature-card"><h2>2. Coordination between drones</h2><p class="feature-copy">Available virtual nodes exchange status summaries and compare task versions during each coordination round.</p>
+<div class="feature-stat"><span>Available nodes</span><b id="coordActiveCount">6 / 6</b></div><div class="feature-stat"><span>Coordination round</span><b id="coordRound">0</b></div><div class="feature-stat"><span>Shared state</span><b id="coordSharedState">Not started</b></div><div class="feature-stat"><span>Task version agreement</span><b id="coordAgreement">—</b></div>
+<div class="feature-stat"><span>Coordination phase</span><b id="coordPhase">Waiting</b></div><div class="feature-stat"><span>Nodes synchronized</span><b id="coordSynced">0 / 6</b></div>
+<div class="feature-controls"><button class="btn" onclick="runCoordinationRound()">Run next coordination round</button><button class="btn secondary" onclick="resetCoordination()">Reset test sequence</button></div><p class="feature-copy">Each click advances the coordination demonstration: synchronizing → fully synchronized → partial sync → coordination lost → recovery.</p><div id="coordinationLog" class="feature-log"><div class="empty">No coordination rounds yet.</div></div></div>
+<div class="feature-card"><h2>3. Weak-node RTL status simulation</h2><p class="feature-copy">Select a virtual node and preview a status-only return workflow when its battery or health score is low. No route, navigation, or physical flight command is generated.</p>
+<div class="feature-controls"><label>Virtual node <select id="rtlNode"><option>D1</option><option>D2</option><option>D3</option><option>D4</option><option>D5</option><option>D6</option></select></label></div>
+<div class="feature-stat"><span>Scenario profile</span><b id="rtlScenario">Not selected</b></div>
+<div class="feature-stat"><span>Battery</span><b id="rtlBattery">—</b></div><div class="feature-stat"><span>Predictive health</span><b id="rtlHealth">—</b></div><div class="feature-stat"><span>Weak-node assessment</span><b id="rtlAssessment">Not evaluated</b></div><div class="feature-stat"><span>RTL workflow status</span><b id="rtlStatus">Standby</b></div>
+<div class="feature-controls"><button class="btn" onclick="advanceRTLScenario()">Run next weak-node test</button><button class="btn secondary" onclick="resetVirtualRTL()">Reset test sequence</button></div><p class="feature-copy">Each click advances the selected node through healthy → warning → critical → RTL status completed → recovered.</p><p class="feature-copy">Demo flag: battery below 25% or predictive health below 65/100. Thresholds are illustrative.</p></div>
+<div class="feature-card"><h2>Resilience event log</h2><p class="feature-copy">Combined record of virtual link tests, coordination rounds, and weak-node status changes.</p><div id="resilienceLog" class="feature-log"><div class="empty">No resilience events yet.</div></div></div>
+</div></section>
+<section id="missions" class="section"><div class="card"><div class="cardhead"><h2>Mission task register</h2><span class="pill">VERSIONED DEMO DATA</span></div><p class="muted">Edit task states to demonstrate version changes and synchronization after reconnection.</p><table class="table"><thead><tr><th>Task</th><th>Status</th><th>Version</th><th>Owner</th><th>Action</th></tr></thead><tbody id="taskRows"></tbody></table><div class="btns" style="margin-top:14px"><button class="btn secondary" onclick="syncTasks()">Synchronize tasks</button></div></div></section>
+<section id="analytics" class="section"><div class="grid two"><div class="card"><h2>Experiment analytics</h2><div class="metricline"><span>Message delivery ratio</span><b id="aDelivery">100%</b></div><div class="bar"><span id="aDeliveryBar" style="width:100%"></span></div><div class="metricline"><span>Node availability</span><b id="aAvailability">100%</b></div><div class="bar"><span id="aAvailabilityBar" style="width:100%"></span></div><div class="metricline"><span>Recovery state</span><b id="aRecovery">Stable</b></div><p class="muted" id="analyticsSummary">No experiment disruptions recorded yet.</p></div><div class="card"><h2>Export experiment data</h2><p class="muted">Download the current virtual node, task and event records for your project report.</p><div class="btns"><button class="btn" onclick="exportJSON()">Export JSON</button><button class="btn secondary" onclick="exportCSV()">Export events CSV</button></div><h2 style="margin-top:22px">Experiment history</h2><div id="history" class="log"></div></div></div></section>
+<div class="foot">SWARM-X Advanced · Browser-based virtual simulation · No hardware interface</div></main></div><div id="toast" class="toast"></div>
+<script>
+const initialNodes=[['D1',85,90,95],['D2',78,82,90],['D3',92,70,85],['D4',80,88,92],['D5',74,75,88],['D6',89,80,91]];
+const initialTelemetry=[
+ {motorTemp:54,vibration:1.4,rpm:5200,commutation:97,packetDelivery:99.2,latency:24,imuStability:98,gpsQuality:96},
+ {motorTemp:62,vibration:2.1,rpm:4950,commutation:94,packetDelivery:97.8,latency:31,imuStability:95,gpsQuality:91},
+ {motorTemp:69,vibration:2.8,rpm:4700,commutation:90,packetDelivery:96.1,latency:38,imuStability:92,gpsQuality:88},
+ {motorTemp:58,vibration:1.8,rpm:5100,commutation:96,packetDelivery:98.7,latency:27,imuStability:97,gpsQuality:94},
+ {motorTemp:76,vibration:3.7,rpm:4450,commutation:84,packetDelivery:93.4,latency:52,imuStability:87,gpsQuality:82},
+ {motorTemp:60,vibration:2.0,rpm:5050,commutation:95,packetDelivery:98.1,latency:29,imuStability:96,gpsQuality:93}
+];
+function telemetryHealth(n){const t=n.telemetry;const temp=Math.max(0,Math.min(100,100-Math.max(0,t.motorTemp-45)*1.65));const vib=Math.max(0,100-t.vibration*13);const rpm=Math.max(0,100-Math.abs(t.rpm-5200)/22);const comm=t.commutation;const comms=Math.max(0,Math.min(100,t.packetDelivery*0.75+(100-Math.min(100,t.latency*1.3))*0.25));const imu=t.imuStability;const gps=t.gpsQuality;const battery=n.battery;const score=battery*.10+temp*.15+vib*.15+rpm*.10+comm*.10+comms*.15+imu*.15+gps*.10;return {score:Math.round(score*10)/10,parts:{battery,temp,vib,rpm,comm,comms,imu,gps}}}
+function healthCondition(h){return h.score>=90?'Healthy':h.score>=78?'Watch':'Attention'}
+function healthPrimaryIssue(n){const t=n.telemetry;const issues=[['Motor temperature',Math.max(0,(t.motorTemp-60)/25)],['Vibration',Math.max(0,(t.vibration-2)/3)],['RPM deviation',Math.abs(t.rpm-5200)/1600],['Commutation stability',Math.max(0,(95-t.commutation)/25)],['Communication quality',Math.max(0,(98-t.packetDelivery)/10+t.latency/180)],['IMU stability',Math.max(0,(95-t.imuStability)/30)],['GPS signal quality',Math.max(0,(90-t.gpsQuality)/30)],['Battery',Math.max(0,(80-n.battery)/50)]];issues.sort((a,b)=>b[1]-a[1]);return issues[0][1]>.08?issues[0][0]:'No major indicator'}
+function renderHealth(){const ranked=nodes.map(n=>({n,h:telemetryHealth(n)})).sort((a,b)=>b.h.score-a.h.score);const fmt=(v,d=0)=>Number(v).toFixed(d);document.getElementById('healthCards').innerHTML=nodes.map(n=>{const t=n.telemetry,h=telemetryHealth(n),state=healthCondition(h),cls=state==='Healthy'?'':state==='Watch'?'warn':'bad';return `<div class="health-card"><div class="health-card-top"><strong>${n.id} ${n.leader?'★ COORDINATOR':''}</strong><span class="health-state ${cls}">${state}</span></div><div class="health-card-top"><span class="muted">Predictive health</span><span class="health-score">${h.score}</span></div><div class="health-bar"><i style="width:${h.score}%"></i></div><div class="health-metrics" style="margin-top:10px"><div class="health-metric"><small>Motor temp</small><b>${fmt(t.motorTemp)} °C</b></div><div class="health-metric"><small>Vibration</small><b>${fmt(t.vibration,1)} mm/s</b></div><div class="health-metric"><small>Motor RPM</small><b>${fmt(t.rpm)}</b></div><div class="health-metric"><small>Commutation</small><b>${fmt(t.commutation)}% stable</b></div><div class="health-metric"><small>Communication</small><b>${fmt(t.packetDelivery,1)}% · ${fmt(t.latency)} ms</b></div><div class="health-metric"><small>IMU stability</small><b>${fmt(t.imuStability)}%</b></div><div class="health-metric"><small>GPS quality</small><b>${fmt(t.gpsQuality)}%</b></div></div></div>`}).join('');document.getElementById('healthRankingRows').innerHTML=ranked.map((x,i)=>{const state=healthCondition(x.h),cls=state==='Healthy'?'':state==='Watch'?'warn':'bad';return `<tr><td><b>#${i+1}</b></td><td><b>${x.n.id}</b></td><td>${x.h.score}/100</td><td><span class="health-state ${cls}">${state}</span></td><td>${healthPrimaryIssue(x.n)}</td></tr>`}).join('')}
+function simulateTelemetryShift(){nodes.forEach((n,i)=>{const t=n.telemetry;t.motorTemp=Math.max(45,Math.min(88,t.motorTemp+(i%2?2.5:1.2)));t.vibration=Math.max(.5,Math.min(6,t.vibration+(i===4?.5:.12)));t.rpm=Math.max(3800,Math.min(5600,t.rpm+(i%2?-90:45)));t.commutation=Math.max(65,Math.min(100,t.commutation-(i===4?3:1)));t.packetDelivery=Math.max(75,Math.min(100,t.packetDelivery-(i===4?2.5:.4)));t.latency=Math.min(150,t.latency+(i===4?12:2));t.imuStability=Math.max(65,Math.min(100,t.imuStability-(i===4?3:.5)));t.gpsQuality=Math.max(60,Math.min(100,t.gpsQuality-(i===4?4:.3)))});log('Virtual telemetry sample advanced. Predictive health ranking recalculated.');render();toast('Health ranking updated')}
+function resetTelemetry(){nodes.forEach((n,i)=>{n.telemetry={...initialTelemetry[i]}});log('Virtual sensor telemetry restored to baseline sample values.');render();toast('Telemetry reset')}
+let nodes=[],tasks=[],events=[],sent=0,delivered=0,failed=0,partitioned=false,history=[],leadershipHistory=[],leadershipTerm=0,lastLeadership={};
+let coordinationRound=0,coordinationEvents=[],resilienceEvents=[],virtualRTL={node:null,status:'Standby',assessment:'Not evaluated'};const pos=[[400,65],[210,150],[590,150],[270,300],[530,300],[400,210]],links=[[0,1],[0,2],[0,5],[1,3],[1,4],[2,3],[2,4],[3,5],[4,5],[1,2]];
+function resilienceLog(message){const item={time:new Date().toLocaleTimeString(),message};resilienceEvents.unshift(item);resilienceEvents=resilienceEvents.slice(0,30);log(message);renderResilienceLogs()}
+function renderResilienceLogs(){const markup=resilienceEvents.map(e=>`<div class="logitem"><time>${e.time}</time>${e.message}</div>`).join('')||'<div class="empty">No resilience events yet.</div>';const box=document.getElementById('resilienceLog');if(box)box.innerHTML=markup;const c=document.getElementById('coordinationLog');if(c)c.innerHTML=coordinationEvents.map(e=>`<div class="logitem"><time>${e.time}</time>${e.message}</div>`).join('')||'<div class="empty">No coordination rounds yet.</div>'}
+let virtualLinkStage='Idle',coordScenario='Waiting',rtlScenario=null;
+let linkTestIndex=0,coordTestIndex=0,rtlTestIndex=0;
+function updateVirtualLink(){const d=Number(document.getElementById('virtualDistance').value),q=Math.max(0,Math.round(100-d*.82));document.getElementById('virtualDistanceValue').textContent=d+' / 100';document.getElementById('virtualLinkQuality').textContent=q+'%';document.getElementById('virtualLinkState').textContent=q>=75?'Stable':q>=45?'Degraded':q>=20?'Weak':'Very weak';if(virtualLinkStage==='Idle')document.getElementById('virtualConnectionStage').textContent='Idle'}
+function testVirtualLink(){const tx=document.getElementById('txNode').value,rx=document.getElementById('rxNode').value;if(tx===rx){document.getElementById('virtualTxResult').textContent='Invalid pair';toast('Choose two different nodes');return}const steps=[{d:8,stage:'Connected',result:'Message delivered',detail:'ACK received — strong logical link'},{d:39,stage:'Degraded',result:'Message delivered with delay',detail:'ACK received after retry'},{d:76,stage:'Weak signal',result:'Message delayed — retrying',detail:'Low logical link quality'},{d:100,stage:'Connection lost',result:'Message failed — no ACK',detail:'Receiver did not acknowledge the message'},{d:14,stage:'Reconnected',result:'Message delivered',detail:'Link restored — ACK received'}];const x=steps[linkTestIndex%steps.length];linkTestIndex++;document.getElementById('virtualDistance').value=x.d;virtualLinkStage=x.stage;updateVirtualLink();document.getElementById('virtualConnectionStage').textContent=x.stage;document.getElementById('virtualTxResult').textContent=x.result;const q=Math.max(0,Math.round(100-x.d*.82));resilienceLog(`Message test ${linkTestIndex}: ${tx} → ${rx} — ${x.stage}. ${x.detail}; logical link quality ${q}%.`);toast(`Test ${linkTestIndex}: ${x.stage}`)}
+function resetVirtualLink(){linkTestIndex=0;document.getElementById('txNode').value='D1';document.getElementById('rxNode').value='D2';document.getElementById('virtualDistance').value=35;virtualLinkStage='Idle';document.getElementById('virtualConnectionStage').textContent='Idle';document.getElementById('virtualTxResult').textContent='Not tested';updateVirtualLink()}
+function renderCoordinationStep(step){const active=nodes.filter(n=>n.active).length;const stages=[{synced:2,phase:'Synchronizing',state:'Initial handshake',agreement:'Nodes exchanging status versions'},{synced:6,phase:'Synchronization complete',state:'Fully synchronized',agreement:'All task versions aligned'},{synced:4,phase:'Partial synchronization',state:'Partially synchronized',agreement:'2 nodes have stale task versions'},{synced:0,phase:'Coordination interrupted',state:'Coordination lost',agreement:'Shared state not confirmed'},{synced:6,phase:'Reconciliation complete',state:'Recovered',agreement:'All active nodes share latest state'}];const x=stages[step%stages.length],synced=Math.min(x.synced,active);coordScenario=x.state;document.getElementById('coordActiveCount').textContent=active+' / 6';document.getElementById('coordRound').textContent=++coordinationRound;document.getElementById('coordSharedState').textContent=x.state;document.getElementById('coordAgreement').textContent=x.agreement;document.getElementById('coordPhase').textContent=x.phase;document.getElementById('coordSynced').textContent=synced+' / 6';const message=`Round ${coordinationRound}: ${x.phase}. ${synced} of 6 nodes synchronized. ${x.agreement}.`;coordinationEvents.unshift({time:new Date().toLocaleTimeString(),message});coordinationEvents=coordinationEvents.slice(0,12);resilienceLog(message);toast(x.state)}
+function runCoordinationRound(){renderCoordinationStep(coordTestIndex);coordTestIndex=(coordTestIndex+1)%5}
+function resetCoordination(){coordinationRound=0;coordTestIndex=0;coordinationEvents=[];coordScenario='Waiting';document.getElementById('coordActiveCount').textContent=nodes.filter(n=>n.active).length+' / 6';document.getElementById('coordRound').textContent='0';document.getElementById('coordSharedState').textContent='Not started';document.getElementById('coordAgreement').textContent='—';document.getElementById('coordPhase').textContent='Waiting';document.getElementById('coordSynced').textContent='0 / 6';renderResilienceLogs();toast('Coordination test reset')}
+function advanceRTLScenario(){const id=document.getElementById('rtlNode').value;const stages=[{battery:88,health:94,label:'Healthy',assessment:'No weak-node flag',status:'Monitoring — healthy'},{battery:48,health:76,label:'Warning',assessment:'Health indicators declining',status:'Warning — continue monitoring'},{battery:21,health:59,label:'Weak node',assessment:'Weak-node threshold crossed',status:'Weak node detected'},{battery:8,health:34,label:'Critical',assessment:'Critical condition — return status required',status:'RTL status triggered (simulation)'},{battery:67,health:86,label:'Recovered',assessment:'Health indicators back above warning threshold',status:'Recovered — monitoring resumed'}];const x=stages[rtlTestIndex%stages.length];rtlTestIndex++;rtlScenario=x.label;virtualRTL={node:id,status:x.status,assessment:x.assessment};document.getElementById('rtlScenario').textContent=x.label+' virtual profile';document.getElementById('rtlBattery').textContent=x.battery+'% (sample)';document.getElementById('rtlHealth').textContent=x.health+'/100 (sample)';document.getElementById('rtlAssessment').textContent=x.assessment;document.getElementById('rtlStatus').textContent=x.status;resilienceLog(`${id} test ${rtlTestIndex}: ${x.label}. Battery ${x.battery}%, predictive health ${x.health}/100. ${x.status}. Sample-only status; no route or physical command.`);toast(`${id}: ${x.label}`)}
+function resetVirtualRTL(){rtlTestIndex=0;virtualRTL={node:null,status:'Standby',assessment:'Not evaluated'};rtlScenario=null;['rtlBattery','rtlHealth'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent='—'});document.getElementById('rtlAssessment').textContent='Not evaluated';document.getElementById('rtlStatus').textContent='Standby';document.getElementById('rtlScenario').textContent='Not selected'}
+
+function resetSim(){
+  nodes=initialNodes.map((n,i)=>({id:n[0],battery:n[1],link:n[2],proximity:n[3],telemetry:{...initialTelemetry[i]},active:true,group:'A',leader:false,localLeader:false}));
+  tasks=[{id:'TASK-A',status:'Pending',version:1,owner:'D1'},{id:'TASK-B',status:'In progress',version:2,owner:'D3'},{id:'TASK-C',status:'Pending',version:1,owner:'D5'}];
+  partitioned=false;sent=delivered=failed=0;events=[];history=[];leadershipHistory=[];leadershipTerm=0;lastLeadership={};
+  selectLeader('Initial coordinator selection');
+  coordinationRound=0;coordinationEvents=[];resilienceEvents=[];linkTestIndex=0;coordTestIndex=0;resetVirtualRTL();
+  log('Simulation reset. All six virtual nodes are available.');
+  render();toast('Experiment reset');
+}
+// Leadership score: battery health and nearness have equal importance.
+function score(n){return n.battery*0.5+n.proximity*0.5}
+// Higher proximity score means the virtual node is nearer to the reference point.
+function compareLeadershipCandidates(a,b){
+  const difference=score(b)-score(a);
+  if(Math.abs(difference)>0.0001)return difference;
+  if(b.proximity!==a.proximity)return b.proximity-a.proximity;
+  return b.battery-a.battery;
+}
+function selectLeader(reason='Coordinator re-evaluation'){
+  const previous={...lastLeadership};
+  nodes.forEach(n=>{n.leader=false;n.localLeader=false;});
+  const activeGroups=[...new Set(nodes.filter(n=>n.active).map(n=>n.group))].sort();
+  const current={};
+  activeGroups.forEach(group=>{
+    const candidates=nodes.filter(n=>n.active&&n.group===group).sort(compareLeadershipCandidates);
+    if(candidates.length){const chosen=candidates[0];chosen.localLeader=true;current[group]=chosen.id;}
+  });
+  const allCandidates=nodes.filter(n=>n.active).sort(compareLeadershipCandidates);
+  if(allCandidates.length)allCandidates[0].leader=true;
+  if(JSON.stringify(previous)!==JSON.stringify(current)){
+    leadershipTerm++;
+    new Set([...Object.keys(previous),...Object.keys(current)]).forEach(group=>{
+      if(previous[group]!==current[group]){
+        const item={time:new Date().toLocaleTimeString(),scope:partitioned?'Group '+group:'Network',previous:previous[group]||'None',next:current[group]||'None',reason,term:leadershipTerm};
+        leadershipHistory.unshift(item);leadershipHistory=leadershipHistory.slice(0,60);
+        if(typeof log==='function')log(`Leadership transition (${item.scope}): ${item.previous} -> ${item.next}. Reason: ${reason}.`);
+      }
+    });
+    lastLeadership=current;
+  }
+}
+function updateNodeMetric(id,key,value){const n=nodes.find(x=>x.id===id);if(!n)return;n[key]=Math.max(0,Math.min(100,Number(value)));log(`${id} ${key==='battery'?'battery':'nearness'} changed to ${n[key]}. Re-evaluating virtual coordinator.`);render();}
+function runBatteryExample(){nodes.forEach(n=>{n.active=true;n.group='A'});partitioned=false;const d1=nodes.find(n=>n.id==='D1');d1.battery=60;const d6=nodes.find(n=>n.id==='D6');d6.battery=89;d6.proximity=91;log('Example applied: D1 battery reduced from 85% to 60%; D6 remains at 89% battery and 91 nearness.');render();toast('Example applied: D6 should lead');}
+function resetBatteryExample(){nodes.forEach((n,i)=>{n.battery=initialNodes[i][1];n.proximity=initialNodes[i][3];n.active=true;n.group='A'});partitioned=false;log('Battery and nearness values restored to the starting example.');render();toast('Example values reset');}
+function simulateLeaderFailure(){
+  const current=nodes.find(n=>n.leader&&n.active);
+  if(!current){toast('No active coordinator is available');return;}
+  current.active=false;
+  log(`Virtual coordinator ${current.id} marked unavailable for the failure experiment.`);
+  selectLeader('Current coordinator unavailable; automatic virtual re-election');
+  render();toast('Virtual leadership transition completed');
+}
+function log(msg){let e={time:new Date().toLocaleTimeString(),message:msg};events.unshift(e);events=events.slice(0,80);history.unshift(e);history=history.slice(0,30)}function groups(){return new Set(nodes.filter(n=>n.active).map(n=>n.group)).size||0}function messageTest(){let active=nodes.filter(n=>n.active);let possible=active.length*Math.max(0,active.length-1);let attempts=Math.min(12,possible);let ratio=partitioned?0.72:0.96;let ok=Math.round(attempts*ratio);sent+=attempts;delivered+=ok;failed+=attempts-ok;log(`Message test: ${attempts} simulated messages, ${ok} delivered, ${attempts-ok} failed.`);render();toast('Message test completed')}function partition(){if(partitioned){toast('Network is already partitioned');return}partitioned=true;nodes.forEach((n,i)=>{n.group=i<3?'A':'B';if(n.id==='D1')n.active=false});selectLeader('Network partition created; local coordinator selection');log('Virtual network partition simulated: two logical groups; D1 unavailable.');history.unshift({time:new Date().toLocaleTimeString(),message:'PARTITION scenario'});render();toast('Virtual partition simulated')}function recover(){if(!partitioned&&!nodes.some(n=>!n.active)){toast('All virtual nodes are already available');return}nodes.forEach(n=>{n.active=true;n.group='A'});partitioned=false;selectLeader('Groups reconnected; network-wide coordinator reconciled');log('Virtual nodes reconnected. Group leadership reconciled into one network-wide coordinator.');history.unshift({time:new Date().toLocaleTimeString(),message:'RECOVERY and leadership reconciliation completed'});render();toast('Virtual network and leadership recovered')}function syncTasks(){tasks.forEach(t=>{t.version++;t.status='Synchronized'});log('Task register synchronized; versions incremented for demonstration.');render();toast('Task sync completed')}function updateTask(id,status){let t=tasks.find(x=>x.id===id);t.status=status;t.version++;log(`${id} updated to ${status}; version ${t.version}.`);render()}function topology(id){let svg=document.getElementById(id),large=id==='fullTopology',p=large?pos.map(([x,y])=>[x+0,y+15]):pos.map(([x,y])=>[(x-400)*.66+300,(y-210)*.66+160]);let html='';links.forEach(([a,b])=>{let same=nodes[a].active&&nodes[b].active&&nodes[a].group===nodes[b].group;html+=`<line class="edge ${same?'active':'off'}" x1="${p[a][0]}" y1="${p[a][1]}" x2="${p[b][0]}" y2="${p[b][1]}"/>`});nodes.forEach((n,i)=>{html+=`<g class="node ${n.active?'':'offline'} ${n.leader?'leader':''}" transform="translate(${p[i][0]},${p[i][1]})"><circle r="${large?27:23}"/><text y="4" style="font-weight:700">${n.id}</text><text class="small" y="${large?43:37}">${n.active?(n.localLeader?'COORDINATOR':'GROUP '+n.group):'UNAVAILABLE'}</text></g>`});svg.innerHTML=html}function render(){selectLeader();let active=nodes.filter(n=>n.active).length,leader=nodes.find(n=>n.leader);document.getElementById('kActive').textContent=`${active} / 6`;document.getElementById('kDelivery').textContent=sent?Math.round(delivered/sent*100)+'%':'—';document.getElementById('kGroups').textContent=groups();document.getElementById('kLeader').textContent=leader?leader.id:'—';document.getElementById('activeBar').style.width=(active/6*100)+'%';document.getElementById('deliveryOverviewBar').style.width=(sent?Math.round(delivered/sent*100):0)+'%';document.getElementById('groupsBar').style.width=(groups()/6*100)+'%';document.getElementById('fleetTotal').textContent=nodes.length;document.getElementById('fleetActive').textContent=active;document.getElementById('fleetGroups').textContent=groups();document.getElementById('fleetOffline').textContent=nodes.length-active;document.getElementById('ovSent').textContent=sent;document.getElementById('ovSuccess').textContent=sent?Math.round(delivered/sent*100)+'%':'—';document.getElementById('ovAvailability').textContent=Math.round(active/6*100)+'%';document.getElementById('healthState').textContent=active===6?'Stable':'Degraded';document.getElementById('messageState').textContent=sent?'Tested':'Ready';document.getElementById('messageSub').textContent=sent?`${delivered} delivered · ${failed} failed`:'Awaiting test run';document.getElementById('overviewAlerts').innerHTML=nodes.filter(n=>!n.active).map(n=>`<div class="ov-row"><b>Node ${n.id} unavailable</b><span class="ov-state" style="color:#ff9b83">Alert</span><small>Virtual node marked offline</small></div>`).join('')||'<div class="ov-row"><b>All systems nominal</b><span class="ov-state">Clear</span><small>No virtual node alerts</small></div>';document.getElementById('globalStatus').textContent=active===6?'● NETWORK ONLINE':'● DEGRADED / PARTITIONED';document.getElementById('globalStatus').style.background=active===6?'#e5f5ef':'#fff0ef';document.getElementById('globalStatus').style.color=active===6?'var(--good)':'var(--bad)';topology('miniTopology');topology('fullTopology');document.getElementById('nodeRegister').innerHTML=nodes.map(n=>`<div class="node-row ${n.active?'':'offline'}"><div class="node-icon">${n.id}</div><div><div class="node-name">${n.id} ${n.localLeader?'★':''}</div><div class="node-meta">${n.active?'Group '+n.group+' · Battery '+n.battery+'% · Nearness '+n.proximity+' · Score '+score(n).toFixed(1):'Unavailable · Battery '+n.battery+'%'}</div><div class="bar"><span style="width:${n.battery}%"></span></div></div><span class="tag ${n.active?'':'off'}">${n.active?(n.leader?'COORDINATOR':'ACTIVE'):'OFFLINE'}</span></div>`).join('');let loghtml=events.map(e=>`<div class="logitem"><time>${e.time}</time>${e.message}</div>`).join('')||'<div class="empty">No events yet.</div>';document.getElementById('overviewLog').innerHTML=loghtml;document.getElementById('commLog').innerHTML=loghtml;document.getElementById('sentCount').textContent=sent;document.getElementById('deliveredCount').textContent=delivered;document.getElementById('failedCount').textContent=failed;let ratio=sent?Math.round(delivered/sent*100):0;document.getElementById('deliveryText').textContent=sent?ratio+'%':'—';document.getElementById('deliveryBar').style.width=ratio+'%';document.getElementById('taskRows').innerHTML=tasks.map(t=>`<tr><td><b>${t.id}</b></td><td><select onchange="updateTask('${t.id}',this.value)"><option ${t.status==='Pending'?'selected':''}>Pending</option><option ${t.status==='In progress'?'selected':''}>In progress</option><option ${t.status==='Synchronized'?'selected':''}>Synchronized</option><option ${t.status==='Completed'?'selected':''}>Completed</option></select></td><td>v${t.version}</td><td>${t.owner}</td><td><button class="btn secondary" onclick="updateTask('${t.id}','Completed')">Complete</button></td></tr>`).join('');document.getElementById('aDelivery').textContent=sent?ratio+'%':'—';document.getElementById('aDeliveryBar').style.width=ratio+'%';document.getElementById('aAvailability').textContent=Math.round(active/6*100)+'%';document.getElementById('aAvailabilityBar').style.width=(active/6*100)+'%';document.getElementById('aRecovery').textContent=partitioned?'Partitioned':'Stable';document.getElementById('analyticsSummary').textContent=`${sent} messages attempted; ${delivered} delivered; ${failed} failed. ${active} of 6 virtual nodes available.`;document.getElementById('history').innerHTML=history.map(e=>`<div class="logitem"><time>${e.time}</time>${e.message}</div>`).join('')||'<div class="empty">No experiment history yet.</div>';
+document.getElementById('leadPrimary').textContent=leader?leader.id:'—';
+document.getElementById('leadTerm').textContent=leadershipTerm;
+document.getElementById('leadGroups').textContent=groups();
+document.getElementById('leadershipControls').innerHTML=nodes.map(n=>`<div class="node-row ${n.active?'':'offline'}"><div class="node-icon">${n.id}</div><div><div class="node-name">${n.id} ${n.localLeader?'★ CURRENT GROUP LEADER':''}</div><div class="metricline"><label for="bat-${n.id}">Battery: <b>${n.battery}%</b></label><span>0–100</span></div><input id="bat-${n.id}" type="range" min="0" max="100" value="${n.battery}" ${n.active?'':'disabled'} onchange="updateNodeMetric('${n.id}','battery',this.value)" style="width:100%"><div class="metricline"><label for="near-${n.id}">Nearness: <b>${n.proximity}</b></label><span>higher = nearer</span></div><input id="near-${n.id}" type="range" min="0" max="100" value="${n.proximity}" ${n.active?'':'disabled'} onchange="updateNodeMetric('${n.id}','proximity',this.value)" style="width:100%"><div class="node-meta">Combined score: <b>${score(n).toFixed(1)}</b> = (${n.battery} × 0.5) + (${n.proximity} × 0.5)</div></div><span class="tag ${n.active?'':'off'}">${n.active?(n.leader?'NETWORK LEADER':'ACTIVE'):'OFFLINE'}</span></div>`).join('');
+const groupRows=[...new Set(nodes.filter(n=>n.active).map(n=>n.group))].sort().map(g=>{const n=nodes.find(x=>x.active&&x.group===g&&x.localLeader);return `<tr><td>${g}</td><td>${n?n.id:'—'}</td><td>${n?score(n).toFixed(1):'—'}</td><td>${n?'Coordinator selected':'No candidate'}</td></tr>`}).join('');
+document.getElementById('groupLeaderRows').innerHTML=groupRows||'<tr><td colspan="4">No active virtual groups</td></tr>';
+document.getElementById('leadershipRows').innerHTML=leadershipHistory.map(e=>`<tr><td>${e.time}</td><td>${e.scope}</td><td>${e.previous}</td><td><b>${e.next}</b></td><td>${e.reason}</td><td>${e.term}</td></tr>`).join('');
+document.getElementById('leadershipEmpty').style.display=leadershipHistory.length?'none':'block';
+renderHealth();
+ const ac=document.getElementById('coordActiveCount');if(ac)ac.textContent=active+' / 6';
+ const rid=document.getElementById('rtlNode')?.value,rn=nodes.find(n=>n.id===rid);if(rn){const rb=document.getElementById('rtlBattery'),rh=document.getElementById('rtlHealth');if(rb)rb.textContent=rn.battery+'%';if(rh)rh.textContent=telemetryHealth(rn).score+'/100'}
+ renderResilienceLogs();
+}function toast(s){let t=document.getElementById('toast');t.textContent=s;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}document.getElementById('nav').addEventListener('click',e=>{let b=e.target.closest('button[data-tab]');if(!b)return;document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab));document.getElementById('pageTitle').textContent=b.textContent.trim().replace(/^[▦⌘◉♛⇄☷▥]\s*/,'')});function download(name,data,type){let blob=new Blob([data],{type}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href)}function exportJSON(){download('swarm-x-experiment.json',JSON.stringify({exportedAt:new Date().toISOString(),simulationOnly:true,nodes,tasks,events,metrics:{sent,delivered,failed},partitioned},null,2),'application/json');toast('JSON report exported')}function exportCSV(){let rows=[['time','event'],...events.map(e=>[e.time,e.message])];download('swarm-x-events.csv',rows.map(r=>r.map(x=>'"'+String(x).replaceAll('"','""')+'"').join(',')).join('\n'),'text/csv');toast('CSV report exported')}resetSim();updateVirtualLink();
+</script></body></html>
